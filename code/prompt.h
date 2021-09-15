@@ -3,4 +3,6 @@
 
 void prompt();
 
+extern char home_dir[];
+
 #endif
