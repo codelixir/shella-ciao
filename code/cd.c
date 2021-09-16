@@ -6,8 +6,8 @@ void cd(int argc, char *argv[])
 
     char dir[1024];
     char path[1024];
-    char pwd[1024];
-    getcwd(pwd, 1024);
+    char cwd[1024];
+    getcwd(cwd, 1024);
 
     if (argc > 2)
     {
@@ -28,7 +28,7 @@ void cd(int argc, char *argv[])
     case '-':
         if (strlen(dir) > 1)
         {
-            printf("cd: %s: Invalid argument\n", dir);
+            printf("cd: No such file or directory: %s\n", dir);
             return;
         }
         strcpy(path, prev_dir);
@@ -49,15 +49,15 @@ void cd(int argc, char *argv[])
     case '.':
         if (!strcmp(".", dir))
         {
-            strcpy(path, pwd);
+            strcpy(path, cwd);
         }
         else if (!strcmp("..", dir))
         {
-            sprintf(path, "%s/..", pwd);
+            sprintf(path, "%s/..", cwd);
         }
         else
         {
-            printf("cd: %s: Invalid argument\n", dir);
+            printf("cd: No such file or directory: %s\n", dir);
             return;
         }
         break;
@@ -71,5 +71,5 @@ void cd(int argc, char *argv[])
         return;
     }
 
-    strcpy(prev_dir, pwd);
+    strcpy(prev_dir, cwd);
 }
