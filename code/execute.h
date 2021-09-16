@@ -4,6 +4,7 @@
 #define EXIT 6385204799
 #define CD 5863276
 #define PWD 193502992
+#define ECHO 6385181892
 
 void execute(char *command);
 long int hash(char *str);

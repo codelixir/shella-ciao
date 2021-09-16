@@ -2,6 +2,7 @@
 #include "execute.h"
 #include "cd.h"
 #include "pwd.h"
+#include "echo.h"
 
 void execute(char *command)
 {
@@ -21,6 +22,9 @@ void execute(char *command)
         break;
     case PWD:
         pwd(argc);
+        break;
+    case ECHO:
+        echo(argc, argv);
         break;
     case EXIT:
         running = false;
