@@ -5,17 +5,8 @@
 #include "pwd.h"
 #include "echo.h"
 
-void execute(char *command)
+void execute(int argc, char *argv[])
 {
-    char *tokenize = strtok(command, " \t\r\n");
-    char *argv[32];
-    int argc = 0;
-    do
-    {
-        argv[argc++] = tokenize;
-        tokenize = strtok(NULL, " \t\r\n");
-    } while (tokenize != NULL);
-
     if (!argv[0])
     {
         return;
@@ -34,7 +25,8 @@ void execute(char *command)
         break;
     case EXIT:
         running = false;
-        break;
+        printf("Bye!\n");
+        return;
     default:
     {
         bool is_bg = false;

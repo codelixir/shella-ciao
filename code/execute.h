@@ -6,7 +6,7 @@
 #define PWD 193502992
 #define ECHO 6385181892
 
-void execute(char *command);
+void execute(int argc, char *argv[]);
 long int hash(char *str);
 extern bool running;
 

@@ -30,7 +30,16 @@ int main()
 
         for (int i = 0; i < cmd_num; i++)
         {
-            execute(commands[i]);
+            char *tokenize = strtok(commands[i], " \t\r\n");
+            char *argv[32];
+            int argc = 0;
+            do
+            {
+                argv[argc++] = tokenize;
+                tokenize = strtok(NULL, " \t\r\n");
+            } while (tokenize != NULL);
+
+            execute(argc, argv);
         }
     }
 }
