@@ -4,3 +4,4 @@
 #include <stdbool.h>
 #include <pwd.h>
 #include <ctype.h>
+#include <sys/wait.h>

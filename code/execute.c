@@ -1,5 +1,6 @@
 #include "headers.h"
 #include "execute.h"
+#include "syscom.h"
 #include "cd.h"
 #include "pwd.h"
 #include "echo.h"
@@ -14,6 +15,11 @@ void execute(char *command)
         argv[argc++] = tokenize;
         tokenize = strtok(NULL, " \t\r\n");
     } while (tokenize != NULL);
+
+    if (!argv[0])
+    {
+        return;
+    }
 
     switch (hash(argv[0]))
     {
@@ -30,7 +36,19 @@ void execute(char *command)
         running = false;
         break;
     default:
-        printf("Invalid command\n");
+    {
+        bool is_bg = false;
+        if (argv[argc - 1][0] == '&')
+        {
+            is_bg = true;
+            argv[argc - 1] = NULL;
+        }
+        else
+        {
+            argv[argc] = NULL;
+        }
+        syscom(argv, is_bg);
+    }
     }
 }
 
