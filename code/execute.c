@@ -1,6 +1,7 @@
 #include "headers.h"
 #include "execute.h"
 #include "cd.h"
+#include "pwd.h"
 
 void execute(char *command)
 {
@@ -17,6 +18,9 @@ void execute(char *command)
     {
     case CD:
         cd(argc, argv);
+        break;
+    case PWD:
+        pwd(argc);
         break;
     case EXIT:
         running = false;
