@@ -4,10 +4,11 @@
 #include "cd.h"
 #include "pwd.h"
 #include "echo.h"
+#include "repeat.h"
 
 void execute(int argc, char *argv[])
 {
-    if (!argv[0])
+    if (!argv[0] || !running)
     {
         return;
     }
@@ -22,6 +23,9 @@ void execute(int argc, char *argv[])
         break;
     case ECHO:
         echo(argc, argv);
+        break;
+    case REPEAT:
+        repeat(argc, argv);
         break;
     case EXIT:
         running = false;
