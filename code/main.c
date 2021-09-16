@@ -3,11 +3,13 @@
 #include "execute.h"
 
 char home_dir[1024];
+char prev_dir[1024];
 bool running;
 
 int main()
 {
     getcwd(home_dir, 1024);
+    strcpy(prev_dir, home_dir);
     running = true;
 
     while (running)

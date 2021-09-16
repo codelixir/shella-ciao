@@ -1,5 +1,6 @@
 #include "headers.h"
 #include "execute.h"
+#include "cd.h"
 
 void execute(char *command)
 {
@@ -14,6 +15,9 @@ void execute(char *command)
 
     switch (hash(argv[0]))
     {
+    case CD:
+        cd(argc, argv);
+        break;
     case EXIT:
         running = false;
         break;
