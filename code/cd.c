@@ -47,19 +47,7 @@ void cd(int argc, char *argv[])
         break;
     }
     case '.':
-        if (!strcmp(".", dir))
-        {
-            strcpy(path, cwd);
-        }
-        else if (!strcmp("..", dir))
-        {
-            sprintf(path, "%s/..", cwd);
-        }
-        else
-        {
-            printf("cd: No such file or directory: %s\n", dir);
-            return;
-        }
+        sprintf(path, "%s/%s", cwd, dir);
         break;
     default:
         strcpy(path, dir);
