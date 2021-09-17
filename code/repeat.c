@@ -1,5 +1,6 @@
 #include "headers.h"
 #include "repeat.h"
+#include "utils.h"
 #include "execute.h"
 
 void repeat(int argc, char *argv[])
@@ -23,21 +24,4 @@ void repeat(int argc, char *argv[])
     {
         execute(argc - 2, newargs);
     }
-}
-
-int strtoi(char *str)
-{
-    int x = 0;
-    int n = strlen(str);
-
-    for (int i = 0; i < n; i++)
-    {
-        int y = str[i] - '0';
-        if (y > 9 || y < 0)
-        {
-            return -1;
-        }
-        x = x * 10 + y;
-    }
-    return x;
 }

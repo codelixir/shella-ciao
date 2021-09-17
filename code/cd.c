@@ -1,5 +1,6 @@
 #include "headers.h"
 #include "cd.h"
+#include "utils.h"
 
 void cd(int argc, char *argv[])
 {
@@ -36,14 +37,7 @@ void cd(int argc, char *argv[])
         break;
     case '~':
     {
-        int n = strlen(dir);
-        for (int i = 0; i < n - 1; i++)
-        {
-            dir[i] = dir[i + 1];
-        }
-        dir[n - 1] = '\0';
-        strcpy(path, home_dir);
-        strcat(path, dir);
+        untildefy(path, dir);
         break;
     }
     case '.':

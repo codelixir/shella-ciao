@@ -1,10 +1,12 @@
 #include "headers.h"
 #include "execute.h"
+#include "utils.h"
 #include "syscom.h"
 #include "cd.h"
 #include "pwd.h"
 #include "echo.h"
 #include "repeat.h"
+#include "ls.h"
 
 void execute(int argc, char *argv[])
 {
@@ -27,6 +29,9 @@ void execute(int argc, char *argv[])
     case REPEAT:
         repeat(argc, argv);
         break;
+    case LS:
+        ls(argc, argv);
+        break;
     case EXIT:
         running = false;
         printf("Bye!\n");
@@ -46,15 +51,4 @@ void execute(int argc, char *argv[])
         syscom(argv, is_bg);
     }
     }
-}
-
-long int hash(char *str)
-{
-    long int hash = 5381;
-    int c;
-
-    while ((c = *str++))
-        hash = ((hash << 5) + hash) + tolower(c);
-
-    return hash;
 }
