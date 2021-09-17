@@ -5,3 +5,5 @@
 #include <pwd.h>
 #include <ctype.h>
 #include <sys/wait.h>
+#include <sys/stat.h>
+#include <dirent.h>
