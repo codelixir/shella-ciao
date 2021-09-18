@@ -45,3 +45,21 @@ int strtoi(char *str)
     }
     return x;
 }
+
+bool withinSixMonths(struct tm past, struct tm future)
+{
+
+    if (past.tm_year == future.tm_year)
+    {
+        if ((future.tm_yday - past.tm_yday) >= 183)
+            return false;
+        return true;
+    }
+    else if (past.tm_year == future.tm_year - 1)
+    {
+        if ((future.tm_yday + 365 - past.tm_yday) >= 183)
+            return false;
+        return true;
+    }
+    return false;
+}

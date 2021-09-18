@@ -6,5 +6,6 @@ extern char home_dir[];
 
 void ls(int argc, char *argv[]);
 void list(char *file, bool flag_l, bool flag_a, bool multiple);
+void long_format(struct stat f_stat);
 
 #endif
