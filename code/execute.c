@@ -38,8 +38,6 @@ void execute(int argc, char *argv[])
         break;
     case EXIT:
         running = false;
-        printf("Bye!\n");
-        write_logs();
         return;
     default:
     {

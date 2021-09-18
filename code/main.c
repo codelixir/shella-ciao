@@ -17,6 +17,8 @@ int main()
     read_logs();
 
     running = true;
+    printf("Ciao!\n");
+
     while (running)
     {
         prompt();
@@ -49,4 +51,9 @@ int main()
             execute(argc, argv);
         }
     }
+
+    write_logs();
+    printf("Ciao!\n");
+
+    return 0;
 }
