@@ -7,6 +7,7 @@
 #include "echo.h"
 #include "repeat.h"
 #include "ls.h"
+#include "history.h"
 
 void execute(int argc, char *argv[])
 {
@@ -32,9 +33,13 @@ void execute(int argc, char *argv[])
     case LS:
         ls(argc, argv);
         break;
+    case HISTORY:
+        history(argc, argv);
+        break;
     case EXIT:
         running = false;
         printf("Bye!\n");
+        write_logs();
         return;
     default:
     {
