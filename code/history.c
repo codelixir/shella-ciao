@@ -37,6 +37,10 @@ void history(int argc, char *argv[])
 
 void update_logs(char *command)
 {
+    if (!strcmp(command, logs[0]))
+    {
+        return;
+    }
     for (int i = log_count; i > 0; i--)
     {
         strcpy(logs[i], logs[i - 1]);
