@@ -99,9 +99,9 @@ void bg_handler(int signal)
 
     if (duplicate)
     {
-        char status[12];
-        WIFEXITED(status) ? strcpy(status, "normally") : strcpy(status, "abnormally");
-        fprintf(stderr, "\n%s with pid %d exited %s\n", duplicate->name, duplicate->id, status);
+        char status_str[12];
+        WIFEXITED(status) ? strcpy(status_str, "normally") : strcpy(status_str, "abnormally");
+        fprintf(stderr, "\n%s with pid %d exited %s\n", duplicate->name, duplicate->id, status_str);
         previous->next = duplicate->next;
         free(duplicate);
         prompt();
