@@ -19,6 +19,39 @@ void untildefy(char final_path[], char tilde_path[])
     strcat(final_path, tilde_path);
 }
 
+void tildefy(char short_path[], char path[])
+{
+
+    int path_len = strlen(path);
+    int home_len = strlen(home_dir);
+    short_path[0] = '~';
+    bool tilde = true;
+
+    if (path_len >= home_len)
+    {
+        for (int i = 0; i < home_len; i++)
+        {
+            if (path[i] != home_dir[i])
+                tilde = false;
+        }
+        if (tilde)
+        {
+            for (int i = home_len; i < path_len; i++)
+            {
+                short_path[i - home_len + 1] = path[i];
+            }
+            short_path[path_len - home_len + 1] = '\0';
+        }
+    }
+    else
+    {
+        tilde = false;
+    }
+
+    if (!tilde)
+        strcpy(short_path, path);
+}
+
 long int hash(char *str)
 {
     long int hash = 5381;

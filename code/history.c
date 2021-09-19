@@ -68,7 +68,7 @@ void read_logs()
     else
     {
         char command[256];
-        while (fgets(command, 256, lf))
+        while (fgets(command, 256, lf) > 0)
         {
             command[strcspn(command, "\n")] = '\0';
             strcpy(logs[log_count++], command);
