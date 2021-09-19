@@ -7,6 +7,7 @@
 #define ECHO 6385181892
 #define REPEAT 6953974492262
 #define LS 5863588
+#define PINFO 210724269537
 #define HISTORY 229468404218647
 
 void execute(int argc, char *argv[]);
