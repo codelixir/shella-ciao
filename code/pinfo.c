@@ -6,6 +6,9 @@ void pinfo(int argc, char *argv[])
 {
 
     pid_t proc_id;
+    char proc_status[4];
+    char proc_memory[32];
+    char proc_path[1024];
 
     if (argc > 2)
     {
@@ -21,11 +24,6 @@ void pinfo(int argc, char *argv[])
         proc_id = shell_id;
     }
 
-    char print_id[8];
-    char print_status[4];
-    char print_memory[32];
-    char print_path[1024];
-
     bool plus = false;
     char path_stat[64], path_status[64], path_exe[64];
     sprintf(path_stat, "/proc/%d/stat", proc_id);
@@ -33,8 +31,6 @@ void pinfo(int argc, char *argv[])
     sprintf(path_exe, "/proc/%d/exe", proc_id);
 
     // stat file
-    char *line_stat = NULL;
-    size_t len_stat;
     FILE *f_stat = fopen(path_stat, "r");
 
     if (!f_stat)
@@ -74,8 +70,7 @@ void pinfo(int argc, char *argv[])
     }
 
     // status file
-    char *line_status = NULL;
-    size_t len_status;
+    char line_status[256];
     FILE *f_status = fopen(path_status, "r");
 
     if (!f_status)
@@ -86,7 +81,7 @@ void pinfo(int argc, char *argv[])
     else
     {
         int i = 1;
-        while (i & (fgets(line_status, 0, f_status) > 0))
+        while (i & (fgets(line_status, 256, f_status) > 0))
         {
             switch (i)
             {
@@ -94,14 +89,14 @@ void pinfo(int argc, char *argv[])
             {
                 char *tokenize = strtok(line_status, "\t ");
                 tokenize = strtok(NULL, "\t ");
-                strcpy(print_status, tokenize);
+                strcpy(proc_status, tokenize);
                 break;
             }
             case 17:
             {
                 char *tokenize = strtok(line_status, "\t ");
                 tokenize = strtok(NULL, "\t ");
-                strcpy(print_memory, tokenize);
+                strcpy(proc_memory, tokenize);
                 break;
             }
             case 18:
@@ -115,12 +110,12 @@ void pinfo(int argc, char *argv[])
         }
         if (plus)
         {
-            print_status[1] = '+';
-            print_status[2] = 0;
+            proc_status[1] = '+';
+            proc_status[2] = 0;
         }
         else
         {
-            print_status[1] = 0;
+            proc_status[1] = 0;
         }
         fclose(f_status);
     }
@@ -135,11 +130,11 @@ void pinfo(int argc, char *argv[])
     }
     else
     {
-        tildefy(print_path, buffer);
+        tildefy(proc_path, buffer);
     }
 
-    printf("pid -- %s\n", print_id);
-    printf("Process Status -- %s\n", print_status);
-    printf("memory -- %s\n", print_memory);
-    printf("Executable Path -- %s\n", print_path);
+    printf("pid -- %d\n", proc_id);
+    printf("Process Status -- %s\n", proc_status);
+    printf("memory -- %s\n", proc_memory);
+    printf("Executable Path -- %s\n", proc_path);
 }
