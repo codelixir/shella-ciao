@@ -12,5 +12,7 @@
 void execute(int argc, char *argv[]);
 
 extern bool running;
+extern int shell_stdout;
+extern int shell_stdin;
 
 #endif

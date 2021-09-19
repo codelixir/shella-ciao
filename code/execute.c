@@ -54,4 +54,9 @@ void execute(int argc, char *argv[])
         syscom(argv, is_bg);
     }
     }
+
+    /* return terminal control to shell in case
+    it had been given to another process */
+    dup2(shell_stdin, STDIN_FILENO);
+    dup2(shell_stdout, STDOUT_FILENO);
 }

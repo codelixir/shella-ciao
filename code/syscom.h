@@ -3,4 +3,8 @@
 
 void syscom(char *argv[], bool is_bg);
 
+extern pid_t shell_id;
+extern int shell_stdout;
+extern int shell_stdin;
+
 #endif

@@ -2,15 +2,29 @@
 #include "prompt.h"
 #include "execute.h"
 #include "history.h"
+#include "utils.h"
 
+pid_t shell_id;
+int shell_stdout;
+int shell_stdin;
 char home_dir[1024];
 char prev_dir[1024];
 char logs[256][21];
 int log_count;
 bool running;
+struct Node *bg_proc_list;
 
 int main()
 {
+    bg_proc_list = (struct Node *)malloc(sizeof(struct Node));
+    bg_proc_list->id = -1;
+    bg_proc_list->next = NULL;
+    signal(SIGCHLD, bg_handler);
+
+    shell_id = getpid();
+    shell_stdin = dup(STDIN_FILENO);
+    shell_stdout = dup(STDOUT_FILENO);
+
     getcwd(home_dir, 1024);
     strcpy(prev_dir, home_dir);
 
