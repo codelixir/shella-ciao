@@ -55,90 +55,11 @@ void pinfo(int argc, char *argv[])
         {
             proc_status[1] = 0;
         }
-        // char *buffer;
-        // long int proc_group, term_group;
-        // int i = 1;
-
-        // while (i && fscanf(f_stat, "%s", buffer))
-        // {
-        //     switch (i)
-        //     {
-        //     case 5:
-        //         proc_group = strtoi(buffer);
-        //         break;
-        //     case 8:
-        //         term_group = strtoi(buffer);
-        //         break;
-        //     case 9:
-        //         i = -1;
-        //         break;
-        //     default:
-        //         break;
-        //     }
-        //     i++;
-        // }
-        // if (proc_group == term_group)
-        // {
-        //     plus = true;
-        // }
         fclose(f_stat);
     }
 
-    // status file
-    /*
-    char line_status[256];
-    FILE *f_status = fopen(path_status, "r");
-
-    if (!f_status)
-    {
-        perror(path_status);
-        return;
-    }
-    else
-    {
-        int i = 1;
-        while (i & (fgets(line_status, 256, f_status) > 0))
-        {
-            switch (i)
-            {
-            case 2:
-            {
-                char *tokenize = strtok(line_status, "\t ");
-                tokenize = strtok(NULL, "\t ");
-                strcpy(proc_status, tokenize);
-                break;
-            }
-            case 17:
-            {
-                char *tokenize = strtok(line_status, "\t ");
-                tokenize = strtok(NULL, "\t ");
-                strcpy(proc_memory, tokenize);
-                break;
-            }
-            case 18:
-                i = -1;
-                break;
-            default:
-                break;
-            }
-
-            i++;
-        }
-        if (plus)
-        {
-            proc_status[1] = '+';
-            proc_status[2] = 0;
-        }
-        else
-        {
-            proc_status[1] = 0;
-        }
-        fclose(f_status);
-    }
-    */
-
     // exe file
-    char buffer[1024];
+    char buffer[1024] = "";
 
     if (readlink(path_exe, buffer, 1024) <= 0)
     {
