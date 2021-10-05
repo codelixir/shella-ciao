@@ -1,6 +1,7 @@
 #include "headers.h"
 #include "syscom.h"
-#include "utils.h"
+#include "handlers.h"
+#include "structs.h"
 
 void syscom(char *argv[], bool is_bg)
 {

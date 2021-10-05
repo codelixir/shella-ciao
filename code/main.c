@@ -1,8 +1,9 @@
 #include "headers.h"
+#include "structs.h"
 #include "prompt.h"
 #include "execute.h"
 #include "history.h"
-#include "utils.h"
+#include "handlers.h"
 
 pid_t shell_id;
 int shell_stdout;
