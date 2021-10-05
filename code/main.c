@@ -4,6 +4,7 @@
 #include "execute.h"
 #include "history.h"
 #include "handlers.h"
+#include "redirection.h"
 
 pid_t shell_id;
 int shell_stdout;
@@ -14,6 +15,7 @@ char logs[256][21];
 int log_count;
 bool running;
 struct Node *bg_proc_list;
+struct Vector open_files = {.count = 0};
 
 int main()
 {
@@ -54,6 +56,9 @@ int main()
 
         for (int i = 0; i < cmd_num; i++)
         {
+            //test
+            // printf("[executing] %s\n", commands[i]);
+
             char *tokenize = strtok(commands[i], " \t\r\n");
             char *argv[32];
             int argc = 0;
@@ -63,7 +68,17 @@ int main()
                 tokenize = strtok(NULL, " \t\r\n");
             } while (tokenize != NULL);
 
-            execute(argc, argv);
+            // test
+            // printf("%d\n", argc);
+
+            int status = 0;
+            status += check_redirection(&argc, argv);
+            if (status == 0)
+                execute(argc, argv);
+            close_all_files();
+
+            // test
+            // printf("%d\n", argc);
         }
     }
 

@@ -10,4 +10,4 @@
 #include <sys/stat.h>
 #include <dirent.h>
 #include <time.h>
-// #include <ncurses.h> // hisory up arrow key bs
+#include <fcntl.h>

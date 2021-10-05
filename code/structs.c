@@ -16,3 +16,16 @@ void bg_proc_add(int pid, char *pname)
 
     duplicate->next = temp;
 }
+
+void track_file(int fd)
+{
+    open_files.list[open_files.count++] = fd;
+}
+
+void close_all_files()
+{
+    while (open_files.count > 0)
+    {
+        close(open_files.list[(open_files.count--) - 1]);
+    }
+}

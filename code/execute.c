@@ -12,7 +12,7 @@
 
 void execute(int argc, char *argv[])
 {
-    if (!argv[0] || !running)
+    if (!argc || !argv[0] || !running)
     {
         return;
     }
