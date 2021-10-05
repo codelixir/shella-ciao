@@ -90,7 +90,7 @@ void list(char *file, bool flag_l, bool flag_a, bool multiple)
                     continue;
                 if (flag_l)
                 {
-                    char f_path[1024];
+                    char f_path[2048];
                     sprintf(f_path, "%s/%s", path, f_name);
                     struct stat f_stat;
                     stat(f_path, &f_stat);

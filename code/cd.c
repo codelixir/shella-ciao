@@ -6,7 +6,7 @@ void cd(int argc, char *argv[])
 {
 
     char dir[1024];
-    char path[1024];
+    char path[2048];
     char cwd[1024];
     getcwd(cwd, 1024);
 
