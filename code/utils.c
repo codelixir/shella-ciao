@@ -108,7 +108,7 @@ void space_join(char dest[], int slen, char *str_list[])
     strcpy(dest, str_list[0]);
     for (int i = 1; i < slen; i++)
     {
-        strlcat(dest, " ", 256);
-        strlcat(dest, str_list[i], 256);
+        strcat(dest, " ");
+        strcat(dest, str_list[i]);
     }
 }
