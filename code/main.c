@@ -52,8 +52,6 @@ int main()
 
         for (int i = 0; i < cmd_num; i++)
         {
-            //test
-            // printf("[executing] %s\n", commands[i]);
 
             char *tokenize = strtok(commands[i], " \t\r\n");
             char *argv[32];
@@ -64,28 +62,13 @@ int main()
                 tokenize = strtok(NULL, " \t\r\n");
             } while (tokenize != NULL);
 
-            // test
-            // printf("%d\n", argc);
-
             int shell_status = 0;
 
-            // test
-            // printf("[%d] ", shell_status);
-
             shell_status += check_redirection(&argc, argv);
-
-            // test
-            // printf("[%d] ", shell_status);
 
             if (shell_status == 0)
                 execute(argc, argv);
             close_all_files();
-
-            // test
-            // printf("%d\n", argc);
-            // free(tokenize);
-            // for (int c = 0; c < 32; c++)
-            //     free(argv[c]);
         }
     }
 
