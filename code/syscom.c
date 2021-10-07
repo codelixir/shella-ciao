@@ -18,6 +18,7 @@ void syscom(char *argv[], bool is_bg)
         if (execvp(argv[0], argv) < 0)
         {
             perror(argv[0]);
+            exit(1);
         }
     }
     else
