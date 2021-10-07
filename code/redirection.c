@@ -115,9 +115,16 @@ int check_redirection(int *argc_ptr, char *argv[])
             }
 
             // test
+            int skip_j = 0;
             fprintf(stderr, "Simplified command: ");
             for (int j = 0; j < argc; j++)
             {
+                if (j == skipped.list[skip_j])
+                {
+                    if (skip_j < skipped.count)
+                        skip_j++;
+                    continue;
+                }
                 fprintf(stderr, "%s ", argv[j]);
             }
             fprintf(stderr, "\n");
