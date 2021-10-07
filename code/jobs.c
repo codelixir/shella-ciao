@@ -4,28 +4,34 @@
 
 void jobs(int argc, char *argv[])
 {
-    optind = 1;
     bool flag_s = false, flag_r = false;
     // running/stopped processes
-    int opt;
 
-    while ((opt = getopt(argc, argv, "rs")) != -1)
+    if (argc > 1)
     {
-        switch (opt)
+        for (int i = 1; i < argc; i++)
         {
-        case 'r':
-            flag_r = true;
-            break;
-        case 's':
-            flag_s = true;
-            break;
-        default:
-            fprintf(stderr, "usage: jobs [-rs]\n");
+            if (!strcmp(argv[i], "-rs") || !strcmp(argv[i], "-sr"))
+            {
+                flag_s = true;
+                flag_r = true;
+            }
+            else if (!strcmp(argv[i], "-r"))
+            {
+                flag_r = true;
+            }
+            else if (!strcmp(argv[i], "-s"))
+            {
+                flag_s = true;
+            }
+            else
+            {
+                fprintf(stderr, "usage: jobs [-rs]\n");
+                return;
+            }
         }
     }
-
-    // if no flags specified, display both running and stopped
-    if (!flag_r && !flag_s)
+    else
     {
         flag_r = true;
         flag_s = true;

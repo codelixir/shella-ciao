@@ -16,9 +16,6 @@ void bg_proc_add(int pid, int argc, char *argv[])
     space_join(temp->name, argc, argv);
     temp->next = NULL;
 
-    // test
-    printf("[%d] Adding job %s with id %d\n", job_count, temp->name, pid);
-
     duplicate->next = temp;
 }
 
