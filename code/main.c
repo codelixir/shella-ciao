@@ -3,7 +3,6 @@
 #include "prompt.h"
 #include "execute.h"
 #include "handlers.h"
-#include "redirection.h"
 
 pid_t shell_id;
 int shell_stdout;
@@ -62,12 +61,7 @@ int main()
                 tokenize = strtok(NULL, " \t\r\n");
             } while (tokenize != NULL);
 
-            int shell_status = 0;
-
-            shell_status += check_redirection(&argc, argv);
-
-            if (shell_status == 0)
-                execute(argc, argv);
+            execute(argc, argv);
             close_all_files();
         }
     }

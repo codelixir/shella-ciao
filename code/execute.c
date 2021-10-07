@@ -8,11 +8,19 @@
 #include "repeat.h"
 #include "ls.h"
 #include "pinfo.h"
+#include "redirection.h"
 
 void execute(int argc, char *argv[])
 {
     if (!argc || !argv[0] || !running)
     {
+        return;
+    }
+
+    if (check_redirection(&argc, argv) != 0)
+    {
+        dup2(shell_stdin, STDIN_FILENO);
+        dup2(shell_stdout, STDOUT_FILENO);
         return;
     }
 
