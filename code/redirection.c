@@ -10,23 +10,19 @@ int check_redirection(int *argc_ptr, char *argv[])
     }
 
     int argc = *argc_ptr;
-
-    // int in_fd = open(in_file, O_RDONLY | O_APPEND, 0);
-    // int out_fd = open(out_file, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
+    struct Vector skipped = {.count = 0};
 
     for (int i = 0; i < argc; i++)
     {
         if (argv[i][0] == '<' || argv[i][0] == '>')
         {
-            // test
-            printf("Entered redirection case for argument %d.\n", i);
 
             // output redirection
             if (strcmp(argv[i], ">") == 0)
             {
                 if (i == argc - 1)
                 {
-                    printf("%s: parse error near `\\n`\n", argv[0]);
+                    fprintf(stderr, "%s: parse error near `\\n`\n", argv[0]);
                     return 1;
                 }
 
@@ -48,21 +44,18 @@ int check_redirection(int *argc_ptr, char *argv[])
                     return 1;
                 }
 
-                // remove `>> arg` from argv
-                for (int j = i + 2; j < argc; j++)
-                {
-                    strcpy(argv[j - 2], argv[j]);
-                }
-                argc -= 2;
-                argv[argc] = "\0";
+                // remove `> arg` from argv
+                skipped.list[skipped.count++] = i;
+                skipped.list[skipped.count++] = ++i;
             }
             else if (strcmp(argv[i], ">>") == 0)
             {
                 if (i == argc - 1)
                 {
-                    printf("%s: parse error near `\\n`\n", argv[0]);
+                    fprintf(stderr, "%s: parse error near `\\n`\n", argv[0]);
                     return 1;
                 }
+
                 // file to replace stdout
                 int out_fd = open(argv[i + 1], O_WRONLY | O_CREAT | O_APPEND, 0644);
                 if (out_fd < 0)
@@ -79,22 +72,19 @@ int check_redirection(int *argc_ptr, char *argv[])
                     return 1;
                 }
 
-                // remove `> arg` from argv
-                for (int j = i + 2; j < argc; j++)
-                {
-                    strcpy(argv[j - 2], argv[j]);
-                }
-                argc -= 2;
-                argv[argc] = "\0";
+                // remove `>> arg` from argv
+                skipped.list[skipped.count++] = i;
+                skipped.list[skipped.count++] = ++i;
             }
             // input redirection
             else if (strcmp(argv[i], "<") == 0)
             {
                 if (i == argc - 1)
                 {
-                    printf("%s: parse error near `\\n`\n", argv[0]);
+                    fprintf(stderr, "%s: parse error near `\\n`\n", argv[0]);
                     return 1;
                 }
+
                 // file to replace stdin
                 int in_fd = open(argv[i + 1], O_RDONLY, 0);
                 if (in_fd < 0)
@@ -112,21 +102,51 @@ int check_redirection(int *argc_ptr, char *argv[])
                 }
 
                 // remove `< arg` from argv
-                for (int j = i + 2; j < argc; j++)
-                {
-                    strcpy(argv[j - 2], argv[j]);
-                }
-                argc -= 2;
-                argv[argc] = "\0";
+                skipped.list[skipped.count++] = i;
+                skipped.list[skipped.count++] = ++i;
             }
             else
             {
-                printf("%s: Invalid symbol or argument: %s\n", argv[0], argv[i]);
+                fprintf(stderr, "%s: Invalid symbol or argument: %s\n", argv[0], argv[i]);
                 return 1;
             }
+
+            int skip_j = 0;
+            fprintf(stderr, "Simplified command: ");
+            for (int j = 0; j < argc; j++)
+            {
+                if (j == skipped.list[skip_j])
+                {
+                    if (skip_j < skipped.count)
+                        skip_j++;
+                    continue;
+                }
+                fprintf(stderr, "%s ", argv[j]);
+            }
+            fprintf(stderr, "\n");
         }
     }
 
-    *argc_ptr = argc;
+    if (skipped.count)
+    {
+        int new_argc = 0, skip_ii = 0;
+        char *new_argv[32];
+        for (int k = 0; k < 32; k++)
+            new_argv[k] = (char *)malloc(sizeof(char) * 1000);
+
+        for (int i = 0; i < argc; i++)
+        {
+            if (i == skipped.list[skip_ii])
+            {
+                if (skip_ii < skipped.count)
+                    skip_ii++;
+                continue;
+            }
+            strcpy(new_argv[new_argc++], argv[i]);
+        }
+
+        argv = new_argv;
+        *argc_ptr = new_argc;
+    }
     return 0;
 }

@@ -2,7 +2,6 @@
 #include "structs.h"
 #include "prompt.h"
 #include "execute.h"
-#include "history.h"
 #include "handlers.h"
 #include "redirection.h"
 
@@ -31,8 +30,6 @@ int main()
     getcwd(home_dir, 1024);
     strcpy(prev_dir, home_dir);
 
-    read_logs();
-
     running = true;
     printf("Ciao!\n");
 
@@ -42,7 +39,6 @@ int main()
 
         char cmd[256];
         fgets(cmd, 256, stdin);
-        update_logs(cmd);
 
         char *tokenize = strtok(cmd, ";");
         char *commands[32];
@@ -56,8 +52,6 @@ int main()
 
         for (int i = 0; i < cmd_num; i++)
         {
-            //test
-            // printf("[executing] %s\n", commands[i]);
 
             char *tokenize = strtok(commands[i], " \t\r\n");
             char *argv[32];
@@ -68,21 +62,16 @@ int main()
                 tokenize = strtok(NULL, " \t\r\n");
             } while (tokenize != NULL);
 
-            // test
-            // printf("%d\n", argc);
+            int shell_status = 0;
 
-            int status = 0;
-            status += check_redirection(&argc, argv);
-            if (status == 0)
+            shell_status += check_redirection(&argc, argv);
+
+            if (shell_status == 0)
                 execute(argc, argv);
             close_all_files();
-
-            // test
-            // printf("%d\n", argc);
         }
     }
 
-    write_logs();
     printf("Ciao!\n");
 
     return 0;
