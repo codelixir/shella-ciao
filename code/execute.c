@@ -8,7 +8,6 @@
 #include "repeat.h"
 #include "ls.h"
 #include "pinfo.h"
-#include "history.h"
 
 void execute(int argc, char *argv[])
 {
@@ -36,9 +35,6 @@ void execute(int argc, char *argv[])
         break;
     case PINFO:
         pinfo(argc, argv);
-        break;
-    case HISTORY:
-        history(argc, argv);
         break;
     case EXIT:
         running = false;

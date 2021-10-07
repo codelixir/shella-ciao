@@ -2,7 +2,6 @@
 #include "structs.h"
 #include "prompt.h"
 #include "execute.h"
-#include "history.h"
 #include "handlers.h"
 #include "redirection.h"
 
@@ -31,8 +30,6 @@ int main()
     getcwd(home_dir, 1024);
     strcpy(prev_dir, home_dir);
 
-    read_logs();
-
     running = true;
     printf("Ciao!\n");
 
@@ -42,7 +39,6 @@ int main()
 
         char cmd[256];
         fgets(cmd, 256, stdin);
-        update_logs(cmd);
 
         char *tokenize = strtok(cmd, ";");
         char *commands[32];
@@ -93,7 +89,6 @@ int main()
         }
     }
 
-    write_logs();
     printf("Ciao!\n");
 
     return 0;
