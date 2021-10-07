@@ -87,7 +87,9 @@ int main()
 
             // test
             // printf("%d\n", argc);
-            free(tokenize);
+            // free(tokenize);
+            // for (int c = 0; c < 32; c++)
+            //     free(argv[c]);
         }
     }
 
