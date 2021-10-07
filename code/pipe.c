@@ -46,8 +46,10 @@ void master(int argc, char *argv[])
         // execute command
         execute(pipe_index, argv);
 
-        // ... | RIGHT HAND SIDE
         dup2(shell_stdout, STDOUT_FILENO);
+        close(tube[1]);
+
+        // ... | RIGHT HAND SIDE
 
         // read from pipe
         if (dup2(tube[0], STDIN_FILENO) < 0)
@@ -69,7 +71,6 @@ void master(int argc, char *argv[])
         master(argc - pipe_index - 1, new_argv);
 
         close(tube[0]);
-        close(tube[1]);
     }
 
     /* return stdin/stdout to shell terminal in
