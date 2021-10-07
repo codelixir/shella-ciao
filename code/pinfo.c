@@ -12,7 +12,7 @@ void pinfo(int argc, char *argv[])
 
     if (argc > 2)
     {
-        printf("pinfo: Too many arguments\n");
+        fprintf(stderr, "pinfo: Too many arguments\n");
         return;
     }
     else if (argc == 2)

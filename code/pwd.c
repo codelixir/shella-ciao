@@ -5,7 +5,7 @@ void pwd(int argc)
 {
     if (argc > 1)
     {
-        printf("pwd: Too many arguments\n");
+        fprintf(stderr, "pwd: Too many arguments\n");
         return;
     }
     char cwd[1024];

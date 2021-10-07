@@ -19,7 +19,7 @@ void ls(int argc, char *argv[])
             flag_l = true;
             break;
         default: // '?'
-            printf("usage: ls [-al] [file...]\n");
+            fprintf(stderr, "usage: ls [-al] [file...]\n");
         }
     }
 

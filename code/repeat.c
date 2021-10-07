@@ -10,7 +10,7 @@ void repeat(int argc, char *argv[])
 
     if (freq < 0)
     {
-        printf("repeat: Invalid frequency: %s\n", argv[1]);
+        fprintf(stderr, "repeat: Invalid frequency: %s\n", argv[1]);
     }
 
     char *newargs[32];

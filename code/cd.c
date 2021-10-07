@@ -12,7 +12,7 @@ void cd(int argc, char *argv[])
 
     if (argc > 2)
     {
-        printf("cd: Too many arguments\n");
+        fprintf(stderr, "cd: Too many arguments\n");
         return;
     }
     else if (argc == 1)
@@ -29,7 +29,7 @@ void cd(int argc, char *argv[])
     case '-':
         if (strlen(dir) > 1)
         {
-            printf("cd: No such file or directory: %s\n", dir);
+            fprintf(stderr, "cd: No such file or directory: %s\n", dir);
             return;
         }
         strcpy(path, prev_dir);
