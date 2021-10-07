@@ -1,5 +1,6 @@
 #include "headers.h"
 #include "execute.h"
+#include "structs.h"
 #include "utils.h"
 #include "syscom.h"
 #include "cd.h"
@@ -12,15 +13,8 @@
 
 void execute(int argc, char *argv[])
 {
-    if (!argc || !argv[0] || !running)
+    if (!argc || !argv[0] || !running || check_redirection(&argc, argv))
     {
-        return;
-    }
-
-    if (check_redirection(&argc, argv) != 0)
-    {
-        dup2(shell_stdin, STDIN_FILENO);
-        dup2(shell_stdout, STDOUT_FILENO);
         return;
     }
 
@@ -62,9 +56,5 @@ void execute(int argc, char *argv[])
         syscom(argv, is_bg);
     }
     }
-
-    /* return terminal control to shell in case
-    it had been given to another process */
-    dup2(shell_stdin, STDIN_FILENO);
-    dup2(shell_stdout, STDOUT_FILENO);
+    close_all_files();
 }

@@ -1,7 +1,7 @@
 #include "headers.h"
 #include "structs.h"
 #include "prompt.h"
-#include "execute.h"
+#include "pipe.h"
 #include "handlers.h"
 
 pid_t shell_id;
@@ -61,8 +61,7 @@ int main()
                 tokenize = strtok(NULL, " \t\r\n");
             } while (tokenize != NULL);
 
-            execute(argc, argv);
-            close_all_files();
+            master(argc, argv);
         }
     }
 
