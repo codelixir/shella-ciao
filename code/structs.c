@@ -12,9 +12,12 @@ void bg_proc_add(int pid, int argc, char *argv[])
 
     struct Node *temp = (struct Node *)malloc(sizeof(struct Node));
     temp->id = pid;
-    temp->j_num = job_count++;
+    temp->j_num = ++job_count;
     space_join(temp->name, argc, argv);
     temp->next = NULL;
+
+    // test
+    printf("[%d] Adding job %s with id %d\n", job_count, temp->name, pid);
 
     duplicate->next = temp;
 }
