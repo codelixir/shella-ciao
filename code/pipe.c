@@ -47,6 +47,7 @@ void master(int argc, char *argv[])
         execute(pipe_index, argv);
 
         // ... | RIGHT HAND SIDE
+        dup2(shell_stdout, STDOUT_FILENO);
 
         // read from pipe
         if (dup2(tube[0], STDIN_FILENO) < 0)

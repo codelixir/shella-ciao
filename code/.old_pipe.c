@@ -55,6 +55,8 @@ void master(int argc, char *argv[])
 
             // remaining arguments
             char *new_argv[32];
+            for (int k = 0; k < 32; k++)
+                new_argv[k] = (char *)malloc(sizeof(char) * 1000);
             for (int j = pipe_index + 1; j < argc; j++)
             {
                 strcpy(new_argv[j - pipe_index - 1], argv[j]);
