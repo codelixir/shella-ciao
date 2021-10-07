@@ -8,6 +8,6 @@ void tildefy(char short_path[], char path[]);
 long int hash(char *str);
 int strtoi(char *str);
 bool withinSixMonths(struct tm past, struct tm future);
-void bg_handler(int signal);
+void space_join(char dest[], int slen, char *str_list[]);
 
 #endif

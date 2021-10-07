@@ -1,7 +1,8 @@
 #include "headers.h"
 #include "structs.h"
+#include "utils.h"
 
-void bg_proc_add(int pid, char *pname)
+void bg_proc_add(int pid, int argc, char *argv[])
 {
     struct Node *duplicate = bg_proc_list;
     while (duplicate->next)
@@ -11,7 +12,8 @@ void bg_proc_add(int pid, char *pname)
 
     struct Node *temp = (struct Node *)malloc(sizeof(struct Node));
     temp->id = pid;
-    strcpy(temp->name, pname);
+    temp->j_num = job_count++;
+    space_join(temp->name, argc, argv);
     temp->next = NULL;
 
     duplicate->next = temp;

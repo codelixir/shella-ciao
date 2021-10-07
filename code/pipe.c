@@ -15,8 +15,6 @@ void master(int argc, char *argv[])
         }
     }
 
-    fprintf(stderr, "[%d] %d\n", getpid(), pipe_index); // test
-
     if (pipe_index == -1)
     {
         // no piping

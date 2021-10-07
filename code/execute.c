@@ -10,6 +10,7 @@
 #include "ls.h"
 #include "pinfo.h"
 #include "redirection.h"
+#include "jobs.h"
 
 void execute(int argc, char *argv[])
 {
@@ -38,6 +39,9 @@ void execute(int argc, char *argv[])
     case PINFO:
         pinfo(argc, argv);
         break;
+    case JOBS:
+        jobs(argc, argv);
+        break;
     case EXIT:
         running = false;
         return;
@@ -47,13 +51,13 @@ void execute(int argc, char *argv[])
         if (argv[argc - 1][0] == '&')
         {
             is_bg = true;
-            argv[argc - 1] = NULL;
+            argv[--argc] = NULL;
         }
         else
         {
             argv[argc] = NULL;
         }
-        syscom(argv, is_bg);
+        syscom(argc, argv, is_bg);
     }
     }
     close_all_files();

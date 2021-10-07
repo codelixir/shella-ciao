@@ -8,6 +8,7 @@
 #define REPEAT 6953974492262
 #define LS 5863588
 #define PINFO 210724269537
+#define JOBS 6385374451
 
 void execute(int argc, char *argv[]);
 
