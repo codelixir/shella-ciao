@@ -71,14 +71,23 @@ int main()
             // test
             // printf("%d\n", argc);
 
-            int status = 0;
-            status += check_redirection(&argc, argv);
-            if (status == 0)
+            int shell_status = 0;
+
+            // test
+            // printf("[%d] ", shell_status);
+
+            shell_status += check_redirection(&argc, argv);
+
+            // test
+            // printf("[%d] ", shell_status);
+
+            if (shell_status == 0)
                 execute(argc, argv);
             close_all_files();
 
             // test
             // printf("%d\n", argc);
+            free(tokenize);
         }
     }
 
