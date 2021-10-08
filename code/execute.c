@@ -12,6 +12,8 @@
 #include "redirection.h"
 #include "jobs.h"
 #include "sig.h"
+#include "bg.c"
+#include "fg.c"
 
 void execute(int argc, char *argv[])
 {
@@ -45,6 +47,12 @@ void execute(int argc, char *argv[])
         break;
     case SIG:
         sig(argc, argv);
+        break;
+    case FG:
+        fg(argc, argv);
+        break;
+    case BG:
+        bg(argc, argv);
         break;
     case EXIT:
         running = false;
