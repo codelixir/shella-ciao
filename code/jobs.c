@@ -51,6 +51,7 @@ void show_jobs(bool running)
     {
         bool show = false;
         int proc_id = duplicate->id;
+        char proc_status[16];
 
         char path_stat[64];
         char proc[64][64];
@@ -67,10 +68,12 @@ void show_jobs(bool running)
             if (proc[2][0] == 'T')
             {
                 show = !running;
+                strcpy(proc_status, "Stopped");
             }
             else
             {
                 show = running;
+                strcpy(proc_status, "Running");
             }
 
             fclose(f_stat);
@@ -78,15 +81,7 @@ void show_jobs(bool running)
 
         if (show)
         {
-            char proc_status[16];
-            if (running)
-            {
-                strcpy(proc_status, "Running");
-            }
-            else
-            {
-                strcpy(proc_status, "Stopped");
-            }
+
             printf("[%d] %s %s [%d]\n", duplicate->j_num, proc_status, duplicate->name, proc_id);
         }
 
