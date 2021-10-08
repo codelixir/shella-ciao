@@ -38,6 +38,28 @@ int job_find(int job_num)
     return pid;
 }
 
+int job_remove(int job_num)
+{
+    struct Node *previous = bg_proc_list;
+    struct Node *duplicate = previous->next;
+
+    while (previous->next)
+    {
+        if (duplicate->j_num == job_num)
+            break;
+        previous = duplicate;
+        duplicate = duplicate->next;
+    }
+
+    if (duplicate)
+    {
+        previous->next = duplicate->next;
+        free(duplicate);
+        prompt();
+        fflush(stdout);
+    }
+}
+
 void track_file(int fd)
 {
     open_files.list[open_files.count++] = fd;

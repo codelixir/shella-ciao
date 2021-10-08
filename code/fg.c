@@ -31,6 +31,9 @@ void fg(int argc, char *argv[])
         return;
     }
 
+    // remove it from the linked list
+    job_remove(job_num);
+
     // bring it in the foreground
     tcsetpgrp(STDIN_FILENO, pid);
     waitpid(pid, NULL, 0);

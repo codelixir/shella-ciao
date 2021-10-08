@@ -13,6 +13,7 @@ extern int job_count;
 extern struct Node *bg_proc_list;
 void job_add(int pid, int argc, char *argv[]);
 int job_find(int job_num);
+int job_remove(int job_num);
 
 struct Vector
 {
