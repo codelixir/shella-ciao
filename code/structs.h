@@ -11,7 +11,8 @@ struct Node
 
 extern int job_count;
 extern struct Node *bg_proc_list;
-void bg_proc_add(int pid, int argc, char *argv[]);
+void job_add(int pid, int argc, char *argv[]);
+int job_find(int job_num);
 
 struct Vector
 {

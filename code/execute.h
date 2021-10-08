@@ -9,6 +9,7 @@
 #define LS 5863588
 #define PINFO 210724269537
 #define JOBS 6385374451
+#define SIG 193505800
 
 void execute(int argc, char *argv[]);
 

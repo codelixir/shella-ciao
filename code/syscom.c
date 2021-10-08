@@ -34,7 +34,7 @@ void syscom(int argc, char *argv[], bool is_bg)
 
         if (is_bg)
         {
-            bg_proc_add(child_id, argc, argv);
+            job_add(child_id, argc, argv);
             // if child is background process, print pid of child
             fprintf(stderr, "%d\n", child_id);
             signal(SIGCHLD, bg_handler);

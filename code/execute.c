@@ -11,6 +11,7 @@
 #include "pinfo.h"
 #include "redirection.h"
 #include "jobs.h"
+#include "sig.h"
 
 void execute(int argc, char *argv[])
 {
@@ -41,6 +42,9 @@ void execute(int argc, char *argv[])
         break;
     case JOBS:
         jobs(argc, argv);
+        break;
+    case SIG:
+        sig(argc, argv);
         break;
     case EXIT:
         running = false;

@@ -2,7 +2,7 @@
 #include "structs.h"
 #include "utils.h"
 
-void bg_proc_add(int pid, int argc, char *argv[])
+void job_add(int pid, int argc, char *argv[])
 {
     struct Node *duplicate = bg_proc_list;
     while (duplicate->next)
@@ -17,6 +17,25 @@ void bg_proc_add(int pid, int argc, char *argv[])
     temp->next = NULL;
 
     duplicate->next = temp;
+}
+
+int job_find(int job_num)
+{
+
+    int pid = -1;
+    struct Node *duplicate = bg_proc_list->next;
+
+    while (duplicate)
+    {
+        if (duplicate->j_num == job_num)
+        {
+            pid = duplicate->id;
+            break;
+        }
+        duplicate = duplicate->next;
+    }
+
+    return pid;
 }
 
 void track_file(int fd)
