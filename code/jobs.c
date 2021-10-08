@@ -68,14 +68,13 @@ void show_jobs(bool running)
             if (proc[2][0] == 'T')
             {
                 show = !running;
-                // strcpy(proc_status, "Stopped");
+                strcpy(proc_status, "Stopped");
             }
             else
             {
                 show = running;
-                // strcpy(proc_status, "Running");
+                strcpy(proc_status, "Running");
             }
-            strcpy(proc_status, proc[2]); //test
 
             fclose(f_stat);
         }
