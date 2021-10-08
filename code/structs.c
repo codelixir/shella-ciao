@@ -56,8 +56,6 @@ int job_remove(int job_num)
     {
         previous->next = duplicate->next;
         free(duplicate);
-        prompt();
-        fflush(stdout);
     }
 }
 
