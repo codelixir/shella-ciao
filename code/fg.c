@@ -24,9 +24,17 @@ void fg(int argc, char *argv[])
     signal(SIGTTOU, SIG_IGN);
     signal(SIGTTIN, SIG_IGN);
 
+    // change status to running
+    if (kill(pid, SIGCONT) < 0)
+    {
+        perror("fg");
+        return;
+    }
+
+    // bring it in the foreground
     tcsetpgrp(STDIN_FILENO, pid);
     waitpid(pid, NULL, 0);
-    tcsetpgrp(STDIN_FILENO, pid);
+    tcsetpgrp(STDIN_FILENO, shell_id);
 
     // default signal handling
     signal(SIGTTOU, SIG_DFL);
