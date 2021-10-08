@@ -12,8 +12,8 @@
 #include "redirection.h"
 #include "jobs.h"
 #include "sig.h"
-#include "bg.c"
-#include "fg.c"
+#include "bg.h"
+#include "fg.h"
 
 void execute(int argc, char *argv[])
 {
