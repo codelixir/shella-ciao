@@ -1,6 +1,7 @@
 #include "headers.h"
 #include "structs.h"
 #include "utils.h"
+#include "prompt.h"
 
 void job_add(int pid, int argc, char *argv[])
 {
