@@ -4,6 +4,11 @@
 
 void master(int argc, char *argv[])
 {
+    if (!argc || !argv[0] || !running)
+    {
+        return;
+    }
+
     int pipe_index = -1;
 
     for (int i = 0; i < argc; i++)
@@ -14,8 +19,6 @@ void master(int argc, char *argv[])
             break;
         }
     }
-
-    fprintf(stderr, "[%d] %d\n", getpid(), pipe_index); // test
 
     if (pipe_index == -1)
     {

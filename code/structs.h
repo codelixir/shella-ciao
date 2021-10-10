@@ -4,12 +4,16 @@
 struct Node
 {
     int id;
+    int j_num;
     struct Node *next;
-    char name[30];
+    char name[256];
 };
 
+extern int job_count;
 extern struct Node *bg_proc_list;
-void bg_proc_add(int pid, char *pname);
+void job_add(int pid, int argc, char *argv[]);
+int job_find(int job_num);
+int job_remove(int job_num);
 
 struct Vector
 {

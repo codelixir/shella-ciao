@@ -1,7 +1,7 @@
 #ifndef __SYSCOM_H
 #define __SYSCOM_H
 
-void syscom(char *argv[], bool is_bg);
+void syscom(int argc, char *argv[], bool is_bg);
 
 extern pid_t shell_id;
 extern int shell_stdout;

@@ -96,3 +96,19 @@ bool withinSixMonths(struct tm past, struct tm future)
     }
     return false;
 }
+
+void space_join(char dest[], int slen, char *str_list[])
+{
+    if (!slen)
+    {
+        strcpy(dest, " ");
+        return;
+    }
+
+    strcpy(dest, str_list[0]);
+    for (int i = 1; i < slen; i++)
+    {
+        strcat(dest, " ");
+        strcat(dest, str_list[i]);
+    }
+}
