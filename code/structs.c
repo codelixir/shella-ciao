@@ -3,6 +3,30 @@
 #include "utils.h"
 #include "prompt.h"
 
+void proc_update(int pid, int argc, char *argv[])
+{
+    fg_proc.id = pid;
+    space_join(fg_proc.name, argc, argv);
+}
+
+void proc_job()
+{
+    struct Node *duplicate = bg_proc_list;
+    while (duplicate->next)
+    {
+        duplicate = duplicate->next;
+    }
+
+    struct Node *temp = (struct Node *)malloc(sizeof(struct Node));
+    temp->id = fg_proc.id;
+    fg_proc.id = -1;
+    temp->j_num = ++job_count;
+    strcpy(temp->name, fg_proc.name);
+    temp->next = NULL;
+
+    duplicate->next = temp;
+}
+
 void job_add(int pid, int argc, char *argv[])
 {
     struct Node *duplicate = bg_proc_list;
@@ -30,7 +54,9 @@ int job_find(int job_num)
     {
         if (duplicate->j_num == job_num)
         {
-            pid = duplicate->id;
+            fg_proc.id = duplicate->id;
+            strcpy(fg_proc.name, duplicate->name);
+            pid = fg_proc.id;
             break;
         }
         duplicate = duplicate->next;
@@ -39,7 +65,7 @@ int job_find(int job_num)
     return pid;
 }
 
-int job_remove(int job_num)
+void job_remove(int job_num)
 {
     struct Node *previous = bg_proc_list;
     struct Node *duplicate = previous->next;

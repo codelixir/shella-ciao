@@ -43,8 +43,9 @@ void fg(int argc, char *argv[])
     // remove it from the linked list
     job_remove(job_num);
 
+    // revert to bg_handler
+    signal(SIGCHLD, bg_handler);
     // default signal handling
     signal(SIGTTOU, SIG_DFL);
     signal(SIGTTIN, SIG_DFL);
-    signal(SIGCHLD, bg_handler);
 }

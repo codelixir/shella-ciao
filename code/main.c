@@ -12,6 +12,7 @@ char prev_dir[1024];
 int job_count = 0;
 bool running;
 struct Node *bg_proc_list;
+struct Node fg_proc = {.next = NULL, .id = -1};
 struct Vector open_files = {.count = 0};
 
 int main()
@@ -20,6 +21,9 @@ int main()
     bg_proc_list->id = -1;
     bg_proc_list->next = NULL;
     signal(SIGCHLD, bg_handler);
+    signal(SIGINT, c_handler);
+    signal(SIGTSTP, z_handler);
+    // signal(SIGTSTP, c_handler);
 
     shell_id = getpid();
     shell_stdin = dup(STDIN_FILENO);
@@ -36,7 +40,13 @@ int main()
         prompt();
 
         char cmd[256];
-        fgets(cmd, 256, stdin);
+
+        if (fgets(cmd, 256, stdin) == NULL)
+        {
+            printf("\n");
+            printf("Ciao!\n");
+            exit(0);
+        }
 
         char *tokenize = strtok(cmd, ";");
         char *commands[32];

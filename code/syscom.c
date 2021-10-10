@@ -41,11 +41,13 @@ void syscom(int argc, char *argv[], bool is_bg)
         }
         else
         {
+            proc_update(child_id, argc, argv);
             //ignore signal
             signal(SIGTTOU, SIG_IGN);
             signal(SIGTTIN, SIG_IGN);
 
             tcsetpgrp(STDIN_FILENO, child_id);
+
             // if child is foreground process, wait for it
             waitpid(child_id, NULL, 0);
             tcsetpgrp(STDIN_FILENO, shell_id);

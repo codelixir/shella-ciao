@@ -9,11 +9,15 @@ struct Node
     char name[256];
 };
 
+extern struct Node fg_proc;
+void proc_update(int pid, int argc, char *argv[]);
+void proc_job();
+
 extern int job_count;
 extern struct Node *bg_proc_list;
 void job_add(int pid, int argc, char *argv[]);
 int job_find(int job_num);
-int job_remove(int job_num);
+void job_remove(int job_num);
 
 struct Vector
 {

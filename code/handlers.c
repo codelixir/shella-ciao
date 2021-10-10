@@ -30,3 +30,71 @@ void bg_handler(int signal)
         fflush(stdout);
     }
 }
+
+void c_handler(int signal)
+{
+    int pid = getpid();
+
+    if (pid < 0)
+    {
+        perror("Error");
+    }
+    // child process
+    else if (pid != shell_id)
+    {
+        return;
+    }
+    // parent process
+    else
+    {
+        if (fg_proc.id < 0)
+        {
+            printf("\n");
+            prompt();
+            fflush(stdout);
+            return;
+        }
+        else
+        {
+            kill(fg_proc.id, SIGINT);
+            fg_proc.id = -1;
+            fflush(stdout);
+        }
+    }
+}
+
+void z_handler(int signal)
+{
+    int pid = getpid();
+
+    if (pid < 0)
+    {
+        perror("Error");
+    }
+    // child process
+    else if (pid != shell_id)
+    {
+        return;
+    }
+    // parent process
+    else
+    {
+        if (fg_proc.id < 0)
+        {
+            printf("\n");
+            prompt();
+            fflush(stdout);
+            return;
+        }
+        else
+        {
+            kill(fg_proc.id, SIGTTIN);
+            kill(fg_proc.id, SIGTSTP);
+            fprintf(stderr, "%d\n", fg_proc.id);
+
+            proc_job();
+            prompt();
+            fflush(stdout);
+        }
+    }
+}
